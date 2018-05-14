@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 // components
-import Header from "./components/Header";
 import Table from './components/Table';
 import GuestList from './components/GuestList';
 
@@ -10,6 +9,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+      pendingGuest:"",
       guests:[
         {
           name:"joe",
@@ -39,6 +39,8 @@ class App extends Component {
       })
     })
   );
+  // new user input 
+  handleNameInput = e => this.setState({ pendingGuest: e.target.value }); 
 
   // change the state for the checkbox
   toggleConfirmationAt = index => this.togglePropertyAt("isConfirmed", index);
@@ -55,6 +57,22 @@ class App extends Component {
         } : guest
       })
     });
+
+    // form submitions
+    handleSubmit = e => {
+      this.setState({
+        guests:[{
+            name:this.state.pendingGuest,
+            isConfirmed:false,
+            isEditing:false,
+          },
+          ...this.state.guests
+        ],
+        pendingGuest:""
+      });
+      e.preventDefault();
+    }
+  
   
 
 
@@ -63,7 +81,19 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Header/>
+        <header>
+            <h1>RSVP</h1>
+            <p>A Treehouse App</p>
+            <form onSubmit={this.handleSubmit}>
+                <input 
+                type="text"
+                onChange={this.handleNameInput} 
+                value={this.state.pendingGuest} 
+                placeholder="Invite Someone"
+                />
+                <button type="submit" name="submit" value="submit">Submit</button>
+            </form>
+        </header>  
         <div className="main">
           <div>
             <h2>Invitees</h2>
