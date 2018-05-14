@@ -10,6 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       pendingGuest:"",
+      isFiltered:false,
       guests:[
         {
           name:"joe",
@@ -76,6 +77,8 @@ class App extends Component {
   
 
 
+    toggleFilter = ()=> this.setState({ isFiltered: !this.state.isFiltered });
+
 
   render() {
     return (
@@ -98,7 +101,10 @@ class App extends Component {
           <div>
             <h2>Invitees</h2>
             <label>
-              <input type="checkbox"/> Hide those who haven't responded
+              <input type="checkbox"
+                onChange={ this.toggleFilter}
+                checked={ this.state.isFiltered }
+              /> Hide those who haven't responded
             </label>
           </div>
           <Table/>
@@ -108,6 +114,7 @@ class App extends Component {
             isEditing={this.state.isEditing}
             guests={this.state.guests}
             setNameAt={this.setNameAt}
+            isFiltered={this.state.isFiltered}
           />
         </div>
 
