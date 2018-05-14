@@ -16,7 +16,7 @@ const Guest = props =>
             checked={props.isConfirmed}/> Confirmed
         </label>
         <button onClick={props.handleEditing}> {props.isEditing ? "save": "edit"}</button>
-        <button>remove</button>
+        <button onClick={props.removeGuest}>remove</button>
     </li>
 
 PropTypes.Guest = {
@@ -24,7 +24,8 @@ PropTypes.Guest = {
     isEditing: PropTypes.bool.isRequired,    
     name: PropTypes.string.isRequired,
     handleConfirmation: PropTypes.func.isRequired,
-    setName: PropTypes.func.isRequired
+    setName: PropTypes.func.isRequired,
+    removeGuest: PropTypes.func.isRequired
 }
 
 export default Guest;

@@ -14,6 +14,7 @@ const GuestList = props =>
                     handleEditing={ e => props.toggleEditingAt(index)}
                     isEditing={guest.isEditing}
                     setName={ text => props.setNameAt(text, index)}
+                    removeGuest={() => props.removeGuestAt(index) }
                 />)
         }
     </ul>
@@ -26,5 +27,6 @@ PropTypes.GuestList = {
     toggleConfirmationAt: PropTypes.func.isRequired,
     toggleEditingAt: PropTypes.func.isRequired,
     setNameAt: PropTypes.func.isRequired,
+    removeGuestAt: PropTypes.func.isRequired
 }
 export default GuestList;

@@ -40,6 +40,14 @@ class App extends Component {
       })
     })
   );
+
+  // remove user
+  removeGuestAt = index => this.setState({
+    guests:[
+      ...this.state.guests.filter( (element, idx) => index !== idx)  
+    ]
+  });
+
   // new user input 
   handleNameInput = e => this.setState({ pendingGuest: e.target.value }); 
 
@@ -115,6 +123,7 @@ class App extends Component {
             guests={this.state.guests}
             setNameAt={this.setNameAt}
             isFiltered={this.state.isFiltered}
+            removeGuestAt={this.removeGuestAt}
           />
         </div>
 
