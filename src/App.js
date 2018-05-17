@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 // components
-import Table from './components/Table';
+import Counter from './components/Counter';
 import GuestList from './components/GuestList';
 
 class App extends Component {
@@ -82,13 +82,18 @@ class App extends Component {
       e.preventDefault();
     }
   
-  
-
-
+    // change the state of filter
     toggleFilter = ()=> this.setState({ isFiltered: !this.state.isFiltered });
 
+    // guest statistics 
+    guestNumbers = {
+      TotalInvited:() => this.state.guests.length,
+      Attending: () => this.state.guests.reduce((total, guest) => guest.isConfirmed ? total+1 : total, 0 ),
+    }
 
   render() {
+    const Unconfirmed = this.guestNumbers.TotalInvited() - this.guestNumbers.Attending();
+
     return (
       <div className="App">
 
@@ -115,7 +120,11 @@ class App extends Component {
               /> Hide those who haven't responded
             </label>
           </div>
-          <Table/>
+          <Counter 
+            Total = {this.guestNumbers.TotalInvited()}
+            Attending = {this.guestNumbers.Attending()}
+            Unconfirmed = {Unconfirmed}
+          />
           <GuestList 
             toggleConfirmationAt={this.toggleConfirmationAt}
             toggleEditingAt={this.toggleEditingAt}

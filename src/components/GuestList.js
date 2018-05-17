@@ -22,7 +22,7 @@ const GuestList = props =>
     </ul>
 
 
-GuestList.PropTypes = {
+GuestList.propTypes = {
     isEditing: PropTypes.bool.isRequired,
     isFiltered:PropTypes.bool.isRequired,
     guests: PropTypes.array.isRequired,

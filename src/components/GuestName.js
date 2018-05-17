@@ -7,7 +7,7 @@ const GuestName = props => props.isEditing ?
     <span>{props.children}</span>
 
 
-GuestName.PropTypes = {
+GuestName.propTypes = {
     isConfirmed: PropTypes.bool.isRequired,
     handleNameEdits: PropTypes.func.isRequired,
 }

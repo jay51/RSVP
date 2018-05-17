@@ -19,7 +19,7 @@ const Guest = props =>
         <button onClick={props.removeGuest}>remove</button>
     </li>
 
-Guest.PropTypes = {
+Guest.propTypes = {
     isConfirmed: PropTypes.bool.isRequired,
     isEditing: PropTypes.bool.isRequired,    
     name: PropTypes.string.isRequired,

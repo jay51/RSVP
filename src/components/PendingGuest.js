@@ -14,7 +14,7 @@ const PendingGuest = props => {
     return null;
     
 }
-PendingGuest.PropTypes = {
+PendingGuest.propTypes = {
     name: PropTypes.string.isRequired,
 }
 
