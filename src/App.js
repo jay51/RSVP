@@ -11,29 +11,16 @@ class App extends Component {
     this.state = {
       pendingGuest:"",
       isFiltered:false,
-      guests:[
-        {
-          name:"joe",
-          isConfirmed:true,
-          isEditing:false
-
-        },
-        {
-          name:"adam",
-          isConfirmed:false,
-          isEditing:false
-        }
-      ]
+      guests:[]
     }
-    // this.toggleConfirmationAt = this.toggleConfirmationAt.bind(this);
   }
 
   // take an index and change the isConfirmed property of the object at the given index.
   // obj={some:"some", other:"other"} =:> obj["some"]
-  togglePropertyAt = (property, indexToChange) =>(
+  togglePropertyAt = (property, id) =>(
     this.setState({
-      guests:this.state.guests.map((guest, index) => {
-        return index === indexToChange ? {
+      guests:this.state.guests.map( guest => {
+        return guest.id === id ? {
           ...guest, 
           [property]: !guest[property],
         } : guest
@@ -42,9 +29,9 @@ class App extends Component {
   );
 
   // remove user
-  removeGuestAt = index => this.setState({
+  removeGuestAt = id => this.setState({
     guests:[
-      ...this.state.guests.filter( (element, idx) => index !== idx)  
+      ...this.state.guests.filter( guest => id !== guest.id )
     ]
   });
 
@@ -52,28 +39,38 @@ class App extends Component {
   handleNameInput = e => this.setState({ pendingGuest: e.target.value }); 
 
   // change the state for the checkbox
-  toggleConfirmationAt = index => this.togglePropertyAt("isConfirmed", index);
+  toggleConfirmationAt = id => this.togglePropertyAt("isConfirmed", id);
   // change the state for the editing
-  toggleEditingAt = index => this.togglePropertyAt("isEditing", index);
+  toggleEditingAt = id => this.togglePropertyAt("isEditing", id);
 
   // handle name edits in guestname
-  setNameAt = (name, indexToChange) =>
+  setNameAt = (name, id) =>
     this.setState({
-      guests:this.state.guests.map((guest, index) => {
-        return index === indexToChange ? {
+      guests:this.state.guests.map( guest => {
+        return guest.id === id ? {
           ...guest, 
           name
         } : guest
       })
     });
 
+    // set Id
+    lastGuestId = 0;
+    newGuestId = () =>{
+      const id = this.lastGuestId++;
+      return id;
+    }
+
+    
     // form submitions
     handleSubmit = e => {
+      const id = this.newGuestId();
       this.setState({
         guests:[{
             name:this.state.pendingGuest,
             isConfirmed:false,
             isEditing:false,
+            id
           },
           ...this.state.guests
         ],
